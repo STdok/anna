@@ -1,0 +1,385 @@
+<head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <style>
+        .legendTable {
+            border: 1px solid forestgreen;
+            display: table;
+            width: 100%;
+            table-layout: fixed;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chart-container" style="width:500">
+        <canvas id="chartjs-2"></canvas>
+    </div>
+
+
+    <script>
+        var data = [{
+            name: 'spir',
+            data: 9,
+            sort: 11
+        },   {
+            name: 'appr',
+            data: 20,
+            sort: 12
+        },   {
+            name: 'social',
+            data: 33,
+            sort: 12
+        },   {
+            name: 'caring',
+            data: 34,
+            sort: 15
+        },   {
+            name: 'selfRefulation',
+            data: 60,
+            sort: 15
+        },   {
+            name: 'creativity',
+            data: 67,
+            sort: 12
+        },   {
+            name: 'prudence',
+            data: 99,
+            sort: 17
+        },   {
+            name: 'critical',
+            data: 31,
+            sort: 12
+        },   {
+            name: 'perspective',
+            data: 54,
+            sort: 19
+        },   {
+            name: 'curosity',
+            data: 73,
+            sort: 20
+        },   {
+            name: 'love',
+            data: 24,
+            sort: 1
+        },   {
+            name: 'fair',
+            data: 98,
+            sort: 6
+        },   {
+            name: 'leader',
+            data: 11,
+            sort: 5
+        },   {
+            name: 'forgive',
+            data: 75,
+            sort: 5
+        },   {
+            name: 'kindness',
+            data: 27,
+            sort: 2
+        },   {
+            name: 'gratitude',
+            data: 100,
+            sort: 5
+        },   {
+            name: 'humor',
+            data: 69,
+            sort: 2
+        },   {
+            name: 'humility',
+            data: 70,
+            sort: 4
+        },   {
+            name: 'hope',
+            data: 15,
+            sort: 40
+        },   {
+            name: 'teamwork',
+            data: 20,
+            sort: 40
+        }] 
+        var map = {
+            spir: 'SPIRITUALITY',
+             
+            appr: 'APPRECIATION OF AESTHETICS & EXCELLENCE',
+             
+            social: 'SOCIAL INTELLIGENCE',
+             
+            caring: 'CARING',
+             
+            selfRefulation: 'SELF REGULATION',
+             
+            creativity: 'CREATIVITY',
+             
+            prudence: 'PRUDENCE',
+             
+            critical: 'CRITICAL THINKING',
+             
+            perspective: 'PERSPECTIVE',
+             
+            curosity: 'CURIOSITY',
+             
+            love: 'LOVE OF LEARNING',
+             
+            fair: 'FAIRNESS',
+             
+            leader: 'LEADERSHIP',
+             
+            forgive: 'FORGIVENESS',
+             
+            kindness: 'KINDNESS',
+             
+            gratitude: 'GRATITUDE',
+             
+            humor: 'HUMOR',
+             
+            humility: 'HUMILITY',
+             
+            hope: 'HOPE',
+             
+            teamwork: 'TEAMWORK'
+        }
+        data.sort(function(a, b) {
+            if (a.sort !== b.sort) {
+                return a.sort - b.sort
+            } else return b.data - a.data
+        })
+
+
+        var genLabels = []
+
+        data.forEach(item => {
+            let label = map[item.name]
+            console.log(item)
+            if (item.name !== "appr") {
+                genLabels.push(label)
+            } else genLabels.push(['APPRECIATION OF', 'AESTHETICS & EXCELLENCE'])
+        });
+        var genData = []
+
+        data.forEach(item => {
+            genData.push(item.data)
+        });
+    </script>
+
+    <script>
+        Chart.defaults.global.elements.rectangle.borderWidth = 0.5
+        Chart.defaults.global.elements.rectangle.borderColor = "#ffffff"
+
+
+
+        Chart.defaults.global.datasets.barThickness = 15,
+            Chart.defaults.global.defaultFontFamily = 'Poppins';
+        Chart.defaults.global.defaultFontSize = 10;
+        Chart.defaults.global.defaultFontStyle = 'normal';
+
+        const aspirer = {
+            colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+            labels: ["GOALS", "VALUES", "VISION"]
+        }
+        var changeLabels = []
+
+
+
+
+
+        const labels = genLabels
+
+
+
+        const datasetColors = {
+
+            "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+            "adventurer": ["#23a77c", "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
+            "ambassador": ["#1d78a8", "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
+            "architect": ["#2e3896", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
+            "advocate": ["#773595", "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
+            "activator": ["#a72022", "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
+
+        }
+
+        const set = aspirer
+
+        const opt = {
+            barThickness: 10
+        }
+        const empty = {}
+        const animation = {
+            duration: 1,
+            onComplete: function() {
+                var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
+                ctx.font = Chart.helpers.fontString(9, "normal", Chart.defaults.global.defaultFontFamily);
+                ctx.textAlign = 'left';
+
+                ctx.textBaseline = 'bottom';
+                //  console.log(this.chart)
+                this.data.datasets.forEach(function(dataset, i) {
+                    var meta = chartInstance.controller.getDatasetMeta(i);
+                    meta.data.forEach(function(bar, index) {
+                        var data = dataset.label;
+                        ctx.fillStyle = "grey" //dataset.backgroundColor;
+                        let x = 120 // bar._model.x + 1;
+                        let y = bar._model.y;
+
+                        let curLabel = dataset._meta[0].data[index]._model.label
+                        let text = "    " + curLabel
+                            //  console.log(dataset._meta[0].data[index]._model.label)
+
+                        console.log(ctx)
+                        var calcX = x
+                        var calcy = y
+                        if (Array.isArray(curLabel)) {
+
+                            let text1 = "   " + curLabel[0]
+
+                            let text2 = "   " + curLabel[1]
+
+                            ctx.fillText(text1, x, y + 0);
+                            ctx.fillText(text2, x, y + 10);
+                            ctx.fillStyle = "#773595"
+
+                            ctx.fillText(index + 1, x - 5, y + 5);
+
+
+                        } else {
+
+                            ctx.fillText(text, x, y + 5);
+                            ctx.fillStyle = "#773595"
+                            ctx.fillText(index + 1, x - 5, y + 5);
+
+                        }
+                    });
+                });
+
+
+            }
+        }
+        const chart = new Chart(document.getElementById("chartjs-2").getContext("2d"), {
+
+            showTooltips: false,
+            "type": "horizontalBar",
+            "data": {
+
+                "labels": labels,
+                "datasets": [{
+                    "label": "Dataset 1",
+                    "backgroundColor": "#773595",
+                    barThickness: opt.barThickness,
+                    "data": genData
+                }]
+            },
+            "options": {
+                animation: animation,
+                plugins: {},
+                showTooltips: false,
+
+
+                "legend": {
+                    "display": false,
+                    labels: {
+                        fontSize: 10,
+                        padding: 20
+                    }
+                },
+                "tooltips": {
+                    "enabled": false
+                },
+
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                "responsive": true,
+                "maintainAspectRatio": true,
+                "responsiveAnimationDuration": 0,
+                aspectRatio: 1,
+                "scales": {
+                    "xAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            fontSize: 18,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "ticks": {
+                            "beginAtZero": true,
+                            "display": false
+                        },
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": true,
+                            drawBorder: false,
+                            lineWidth: 0,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            zeroLineBorderDashOffset: 5,
+                            // zeroLineBorderDash: [2, 2, 2, 2, 2, 2],
+                            zeroLineWidth: 1.2,
+                            zeroLineColor: "black",
+                            offsetGridLines: false,
+                            z: 9999999,
+                            color: "black"
+                        }
+                    }],
+                    "yAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            fontSize: 18,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": false
+                        },
+                        "ticks": {
+                            "beginAtZero": true,
+                            "display": true,
+                            padding: 25,
+                            labelOffset: 0,
+                            mirror: false,
+                            major: false,
+                            reverse: false,
+                            fontSize: 10,
+                            fontColor: "white",
+                            fontFunction: function(tickIndex) {
+                                if (tickIndex % 2 !== 0) {
+                                    return '14px "Gotham Book"';
+                                } else {
+                                    return '30px "Gotham Book"';
+                                }
+                            },
+                            callback: function(value, index, values) {
+                                //console.log(this)
+                                this._ticks[index].label = "some"
+
+                                let text = value + " (" + [index + 1] + ")"
+                                changeLabels.push(text)
+                                return text;
+                            }
+                        }
+                    }]
+                }
+            }
+        });
+        chart.canvas.parentNode.style.height = '128px';
+    </script>
+
+
+    <script>
+        var meta = chart.getDatasetMeta(0);
+        //  console.log(chart)
+    </script>
+</body>

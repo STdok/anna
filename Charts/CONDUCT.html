@@ -1,0 +1,187 @@
+<head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <div class="chart-container" style="width:500">
+        <canvas id="chartjs-2"></canvas>
+    </div>
+
+    <script>
+        Chart.defaults.global.elements.rectangle.borderWidth = 0.5
+        Chart.defaults.global.elements.rectangle.borderColor = "#ffffff"
+
+
+
+        Chart.defaults.global.datasets.barThickness = 15,
+            Chart.defaults.global.defaultFontFamily = 'Poppins';
+        Chart.defaults.global.defaultFontSize = 12;
+        Chart.defaults.global.defaultFontStyle = 'bold';
+
+        const aspirer = {
+            colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+            labels: ["GOALS", "VALUES", "VISION"]
+        }
+
+
+
+        const datasetColors = {
+
+            "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+            "adventurer": ["#23a77c", "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
+            "ambassador": ["#1d78a8", "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
+            "architect": ["#2e3896", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
+            "advocate": ["#773595", "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
+            "activator": ["#a72022", "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
+
+        }
+
+        const set = aspirer
+
+        const opt = {
+            barThickness: 50
+        }
+        const chart = new Chart(document.getElementById("chartjs-2").getContext("2d"), {
+
+            showTooltips: false,
+            "type": "horizontalBar",
+            "data": {
+
+                "labels": set.labels,
+                "datasets": [{
+                    "label": "Dataset 1",
+                    "backgroundColor": set.colors[0],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        3,
+                        4,
+                        7
+                    ]
+                }, {
+                    "label": "Dataset 2",
+                    "backgroundColor": set.colors[1],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        4,
+                        6,
+                        7
+                    ]
+                }, {
+                    "label": "Dataset 3",
+                    "backgroundColor": set.colors[2],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        6,
+                        3,
+                        8
+                    ]
+                }, {
+                    "label": "Dataset 4",
+                    "backgroundColor": set.colors[3],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        3,
+                        8,
+                        2
+                    ]
+                }, {
+                    "label": "Dataset 5",
+                    "backgroundColor": set.colors[4],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        8,
+                        3,
+                        6
+                    ]
+                }, {
+                    "label": "Dataset 6",
+                    "backgroundColor": set.colors[5],
+                    barThickness: opt.barThickness,
+                    "data": [
+                        4,
+                        3,
+                        2
+                    ]
+                }]
+            },
+            "options": {
+                showTooltips: false,
+
+
+                "legend": {
+                    "display": false
+                },
+                "tooltips": {
+                    "enabled": false
+                },
+
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                "responsive": true,
+                "maintainAspectRatio": true,
+                "responsiveAnimationDuration": 0,
+                aspectRatio: 2.5,
+                "scales": {
+                    "xAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            fontSize: 18,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "ticks": {
+                            "beginAtZero": true,
+                            "display": false
+                        },
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": true,
+                            drawBorder: false,
+                            lineWidth: 0,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            zeroLineBorderDashOffset: 5,
+                            // zeroLineBorderDash: [2, 2, 2, 2, 2, 2],
+                            zeroLineWidth: 1.2,
+                            zeroLineColor: "black",
+                            offsetGridLines: false,
+                            z: 9999999,
+                            color: "black"
+                        }
+                    }],
+                    "yAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            fontSize: 18,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": false
+                        },
+                        "ticks": {
+                            "beginAtZero": true,
+                            "display": true,
+                            padding: 25
+                        }
+                    }]
+                }
+            }
+        });
+        chart.canvas.parentNode.style.height = '128px';
+    </script>
+</body>

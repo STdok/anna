@@ -1,0 +1,25 @@
+{
+    "url": "{{parameters.base}}/version-{{parameters.version}}/api/1.1/obj/order",
+    "headers": {
+        "Authorization": "Bearer {{parameters.apiKey}}"
+    },
+    "log": {
+        "sanitize": ["request.headers.Authorization"]
+    }
+}
+
+[{
+        "name": "apiKey",
+        "type": "text",
+        "label": "API Key",
+        "required": true
+    },
+    {
+        "name": "version",
+        "type": "text"
+    },
+    {
+        "name": "base",
+        "type": "text"
+    }
+]

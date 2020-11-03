@@ -1,0 +1,16 @@
+{
+	"url": "/obj/order/{{parameters.orderId}}",
+	"method": "GET",
+	"response": {
+		"output": "{{body.response}}"
+	}
+}
+
+[
+	{
+		"name": "orderId",
+		"type": "text",
+		"label": "Order Id",
+		"required": true
+	}
+]

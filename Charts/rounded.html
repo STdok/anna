@@ -1,0 +1,80 @@
+<head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+</head>
+
+<body>
+    <canvas id="myChart" width="400" height="400"></canvas>
+    <script>
+        const data2 = [20, 200]
+        const searchParams = new URLSearchParams(window.location.search)
+        const options = JSON.parse(searchParams.get('options')) || data2
+            //http://127.0.0.1:5500/rounded.html?options=[23]
+        options[1] = 100 - options[0]
+
+        const opacity = 0.5 + data2[0] / 200
+        var data = {
+
+            datasets: [{
+                data: options,
+                borderColor: "black",
+                borderWidth: 0.5,
+                backgroundColor: [
+                    "rgb(120, 168, 65," + opacity + ")",
+                    "rgb(0, 0, 0,0)"
+                ]
+            }]
+        };
+
+
+
+        var ctx = document.getElementById("myChart");
+
+        // And for a doughnut chart
+        var myDoughnutChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: data,
+
+            options: {
+                plugins: {
+                    labels: {
+                        render: 'value',
+                        fontColor: ["white", "white"],
+                        precision: 2,
+                        fontSize: 40
+                    }
+                },
+
+                rotation: 1 * Math.PI,
+                circumference: 1 * Math.PI,
+                showTooltips: false,
+
+
+                "legend": {
+                    "display": false
+                },
+                "tooltips": {
+                    "enabled": false
+                },
+
+                layout: {
+                    padding: {
+                        left: 20,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                "responsive": false,
+                "responsiveAnimationDuration": 0,
+                aspectRatio: 2.5,
+            }
+        });
+    </script>
+</body>

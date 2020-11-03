@@ -1,0 +1,7 @@
+{
+    "baseUrl": "{{connection.base}}/version-{{connection.version}}/api/1.1",
+    "headers": { "Authorization": "Bearer {{connection.apiKey}}" },
+    "log": {
+        "sanitize": ["request.headers.authorization"]
+    }
+}

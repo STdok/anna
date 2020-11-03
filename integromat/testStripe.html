@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>Buy cool new product</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <button id="checkout-button">Checkout</button>
+
+    <script type="text/javascript">
+        // Create an instance of the Stripe object with your publishable API key
+        var stripe = Stripe('pk_test_51HaGuTBcTHMJHUOIQ3Vu3BuBBDOEKD5mqT4mEYAtY3FQ39UpYGow3oJf8hRAIZaQ7wQfQyKRqM8PiMlyE1y0rlap00Rx5PMQi2');
+        var checkoutButton = document.getElementById('checkout-button');
+        var session = 'cs_test_uyfkp255PsbDufhbbvnGPYWOyykGLIlI9uytSZrA31euZHN24iP1vCRO'
+        checkoutButton.addEventListener('click', function() {
+            return stripe.redirectToCheckout({
+                sessionId: session
+            })
+        });
+    </script>
+</body>
+
+</html>
