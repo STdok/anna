@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
 
 </head>
 
@@ -14,7 +16,7 @@
         <canvas id="chartjs-2"></canvas>
     </div>
     <script>
-        var data = [
+        var data2 = [
             [5, 18, 14, 28, 22, 14],  
             [21, 23, 20, 0, 21, 15],  
             [3, 28, 3, 20, 25, 20],  
@@ -22,6 +24,10 @@
             [24, 19, 25, 15, 3, 15],  
             [5, 1, 29, 14, 19, 32]
         ]
+
+        const searchParams = new URLSearchParams(window.location.search)
+
+        var data = JSON.parse(searchParams.get('options')) || genData()
 
         function genData() {
             var res = []
@@ -78,7 +84,7 @@
 
         }
 
-        data = genData()
+
 
 
         function transpose(data) {
@@ -86,6 +92,7 @@
 
             return data[0].map((_, colIndex) => data.map(row => row[colIndex]))
         }
+
 
         data = transpose(data)
     </script>
@@ -127,6 +134,31 @@
         const opt = {
             barThickness: 50
         }
+
+        // VALUES ON BAR
+        const animation = {
+                "onComplete": function() {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(8, "normal", Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    ctx.fillStyle = "grey"
+
+                    this.data.datasets.forEach(function(dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function(bar, index) {
+                            var data = dataset.data[index];
+                            if (data > 5) {
+                                ctx.fillText(data, bar._model.x - 10, bar._model.y - 25);
+                            }
+                        });
+                    });
+                }
+            }
+            // VALUES ON BAR
+
         const chart = new Chart(document.getElementById("chartjs-2").getContext("2d"), {
 
             showTooltips: false,
@@ -170,7 +202,7 @@
             "options": {
                 showTooltips: false,
 
-
+                animation: animation,
                 "legend": {
                     "display": false
                 },

@@ -28,87 +28,93 @@
 
 
     <script>
-        var data = [{
-            name: 'spir',
-            data: 9,
-            sort: 11
-        },   {
-            name: 'appr',
-            data: 20,
-            sort: 12
-        },   {
-            name: 'social',
-            data: 33,
-            sort: 12
-        },   {
-            name: 'caring',
-            data: 34,
-            sort: 15
-        },   {
-            name: 'selfRefulation',
-            data: 60,
-            sort: 15
-        },   {
-            name: 'creativity',
-            data: 67,
-            sort: 12
-        },   {
-            name: 'prudence',
-            data: 99,
-            sort: 17
-        },   {
-            name: 'critical',
-            data: 31,
-            sort: 12
-        },   {
-            name: 'perspective',
-            data: 54,
-            sort: 19
-        },   {
-            name: 'curosity',
-            data: 73,
-            sort: 20
-        },   {
-            name: 'love',
-            data: 24,
-            sort: 1
-        },   {
-            name: 'fair',
-            data: 98,
-            sort: 6
-        },   {
-            name: 'leader',
-            data: 11,
-            sort: 5
-        },   {
-            name: 'forgive',
-            data: 75,
-            sort: 5
-        },   {
-            name: 'kindness',
-            data: 27,
-            sort: 2
-        },   {
-            name: 'gratitude',
-            data: 100,
-            sort: 5
-        },   {
-            name: 'humor',
-            data: 69,
-            sort: 2
-        },   {
-            name: 'humility',
-            data: 70,
-            sort: 4
-        },   {
-            name: 'hope',
-            data: 15,
-            sort: 40
-        },   {
-            name: 'teamwork',
-            data: 20,
-            sort: 40
+        var data2 = [{
+            "name": "spir",
+            "data": 9,
+            "sort": 11
+        }, {
+            "name": "appr",
+            "data": 20,
+            "sort": 12
+        }, {
+            "name": "social",
+            "data": 33,
+            "sort": 12
+        }, {
+            "name": "caring",
+            "data": 34,
+            "sort": 15
+        }, {
+            "name": "selfRefulation",
+            "data": 60,
+            "sort": 15
+        }, {
+            "name": "creativity",
+            "data": 67,
+            "sort": 12
+        }, {
+            "name": "prudence",
+            "data": 99,
+            "sort": 17
+        }, {
+            "name": "critical",
+            "data": 31,
+            "sort": 12
+        }, {
+            "name": "perspective",
+            "data": 54,
+            "sort": 19
+        }, {
+            "name": "curosity",
+            "data": 73,
+            "sort": 20
+        }, {
+            "name": "love",
+            "data": 24,
+            "sort": 1
+        }, {
+            "name": "fair",
+            "data": 98,
+            "sort": 6
+        }, {
+            "name": "leader",
+            "data": 11,
+            "sort": 5
+        }, {
+            "name": "forgive",
+            "data": 75,
+            "sort": 5
+        }, {
+            "name": "kindness",
+            "data": 27,
+            "sort": 2
+        }, {
+            "name": "gratitude",
+            "data": 100,
+            "sort": 5
+        }, {
+            "name": "humor",
+            "data": 69,
+            "sort": 2
+        }, {
+            "name": "humility",
+            "data": 70,
+            "sort": 4
+        }, {
+            "name": "hope",
+            "data": 15,
+            "sort": 40
+        }, {
+            "name": "teamwork",
+            "data": 20,
+            "sort": 40
         }] 
+
+
+        const searchParams = new URLSearchParams(window.location.search)
+
+        const data = JSON.parse(searchParams.get('options')) || data2
+
         var map = {
             spir: 'SPIRITUALITY',
              
@@ -216,7 +222,7 @@
         }
         const empty = {}
         const animation = {
-            duration: 1,
+            duration: 0,
             onComplete: function() {
                 var chartInstance = this.chart,
                     ctx = chartInstance.ctx;
@@ -266,6 +272,8 @@
 
             }
         }
+
+
         const chart = new Chart(document.getElementById("chartjs-2").getContext("2d"), {
 
             showTooltips: false,

@@ -7,10 +7,21 @@
 
     <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
 
+
+    <style>
+        body {
+            padding: 0;
+            margin: 0
+        }
+    </style>
 </head>
 
 <body>
-    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <div class="chart-container" style="width:400">
+        <canvas id="myChart" width="400" height="200"></canvas>
+    </div>
+
     <script>
         const data2 = [20, 200]
         const searchParams = new URLSearchParams(window.location.search)
@@ -65,8 +76,8 @@
 
                 layout: {
                     padding: {
-                        left: 20,
-                        right: 0,
+                        left: 10,
+                        right: 10,
                         top: 0,
                         bottom: 0
                     }

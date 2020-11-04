@@ -14,6 +14,66 @@
         <canvas id="chartjs-2"></canvas>
     </div>
 
+
+    <script>
+        // ?options={"type":"aspirer","data":[[2,3,3,7,3,1],[6,2,6,8,3,2],[3,6,3,8,5,3]]}
+
+        function transpose(data) {
+            return data[0].map((_, colIndex) => data.map(row => row[colIndex]))
+        }
+        const data3 = {
+            "type": "aspirer",
+            "data": [
+                [2, 3, 3, 7, 3, 1],
+                [6, 2, 6, 8, 3, 2],
+                [3, 6, 3, 8, 5, 3]
+            ]
+
+        }
+
+        console.log(transpose(data3.data))
+        const data2 = {
+            "type": "aspirer",
+            "data": [
+                [
+                    3,
+                    7,
+                    7
+                ],
+                [
+                    3,
+                    4,
+                    8
+                ],
+                [
+                    2,
+                    4,
+                    5
+                ],
+                [
+                    2,
+                    4,
+                    7
+                ],
+                [
+                    6,
+                    2,
+                    7
+                ],
+                [
+                    8,
+                    2,
+                    7
+                ]
+            ]
+        }
+
+        const searchParams = new URLSearchParams(window.location.search)
+
+        const data = JSON.parse(searchParams.get('options')) || data3
+
+        data.data = transpose(data.data)
+    </script>
     <script>
         Chart.defaults.global.elements.rectangle.borderWidth = 0.5
         Chart.defaults.global.elements.rectangle.borderColor = "#ffffff"
@@ -24,14 +84,6 @@
             Chart.defaults.global.defaultFontFamily = 'Poppins';
         Chart.defaults.global.defaultFontSize = 12;
         Chart.defaults.global.defaultFontStyle = 'bold';
-
-        const aspirer = {
-            colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-            labels: ["GOALS", "VALUES", "VISION"]
-        }
-
-
-
         const datasetColors = {
 
             "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
@@ -43,7 +95,65 @@
 
         }
 
-        const set = aspirer
+        const labelOptions = {
+            aspirer: {
+                colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+                labels: ["GOALS         ", "VALUES       ", "VISION       "]
+            },
+            adventurer: {
+                colors: datasetColors.adventurer,
+                labels: ["UNCERTAINTY   ", ["RISK  ", "TRANSPARENCY  "], "COMFORT ZONE  "]
+            },
+            ambassador: {
+                colors: datasetColors.ambassador,
+                labels: ["LOGIC        ", "INFORMATION   ", "OPTIONS      "]
+            },
+            architect: {
+                colors: datasetColors.architect,
+                labels: ["POTENTIAL     ", "AVAILABILITY  ", "NEEDS         "]
+            },
+            advocate: {
+                colors: datasetColors.advocate,
+                labels: ["CENTEREDNESS  ", "UNDERSTANDING ", "AWARENESS     "]
+            },
+            activator: {
+                colors: datasetColors.activator,
+                labels: ["LOGIC         ", "INFORMATION   ", "CHANGE THIS   "]
+            }
+
+
+        }
+
+
+        const set = labelOptions[data.type]
+
+
+
+        // VALUES ON BAR
+        const animation = {
+                duration: 0,
+                "onComplete": function() {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(8, "normal", Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    ctx.fillStyle = "grey"
+
+                    this.data.datasets.forEach(function(dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function(bar, index) {
+                            var data = dataset.data[index];
+                            if (data > 0) {
+                                ctx.fillText(data, bar._model.x - 10, bar._model.y - 25);
+                            }
+                        });
+                    });
+                }
+            }
+            // VALUES ON BAR
+
 
         const opt = {
             barThickness: 50
@@ -59,61 +169,37 @@
                     "label": "Dataset 1",
                     "backgroundColor": set.colors[0],
                     barThickness: opt.barThickness,
-                    "data": [
-                        3,
-                        4,
-                        7
-                    ]
+                    "data": data.data[0]
                 }, {
                     "label": "Dataset 2",
                     "backgroundColor": set.colors[1],
                     barThickness: opt.barThickness,
-                    "data": [
-                        4,
-                        6,
-                        7
-                    ]
+                    "data": data.data[1]
                 }, {
                     "label": "Dataset 3",
                     "backgroundColor": set.colors[2],
                     barThickness: opt.barThickness,
-                    "data": [
-                        6,
-                        3,
-                        8
-                    ]
+                    "data": data.data[2]
                 }, {
                     "label": "Dataset 4",
                     "backgroundColor": set.colors[3],
                     barThickness: opt.barThickness,
-                    "data": [
-                        3,
-                        8,
-                        2
-                    ]
+                    "data": data.data[3]
                 }, {
                     "label": "Dataset 5",
                     "backgroundColor": set.colors[4],
                     barThickness: opt.barThickness,
-                    "data": [
-                        8,
-                        3,
-                        6
-                    ]
+                    "data": data.data[4]
                 }, {
                     "label": "Dataset 6",
                     "backgroundColor": set.colors[5],
                     barThickness: opt.barThickness,
-                    "data": [
-                        4,
-                        3,
-                        2
-                    ]
+                    "data": data.data[5]
                 }]
             },
             "options": {
                 showTooltips: false,
-
+                animation: animation,
 
                 "legend": {
                     "display": false
@@ -134,11 +220,19 @@
                 "maintainAspectRatio": true,
                 "responsiveAnimationDuration": 0,
                 aspectRatio: 2.5,
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
                 "scales": {
                     "xAxes": [{
                         scaleLabel: {
                             display: false,
-                            fontSize: 18,
+                            fontSize: 14,
                             labelString: "The Horizontal label string needs to be even longer to truncate"
                         },
                         "stacked": true,
@@ -165,7 +259,7 @@
                     "yAxes": [{
                         scaleLabel: {
                             display: false,
-                            fontSize: 18,
+                            fontSize: 14,
                             labelString: "The Horizontal label string needs to be even longer to truncate"
                         },
                         "stacked": true,
@@ -176,7 +270,7 @@
                         "ticks": {
                             "beginAtZero": true,
                             "display": true,
-                            padding: 25
+                            padding: 15
                         }
                     }]
                 }
