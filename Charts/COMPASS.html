@@ -13,6 +13,10 @@
             width: 100%;
             table-layout: fixed;
         }
+        
+        canvas {
+            background-color: white;
+        }
     </style>
 </head>
 
@@ -226,7 +230,7 @@
                     meta.data.forEach(function(bar, index) {
                         var data = dataset.label;
                         ctx.fillStyle = "grey" //dataset.backgroundColor;
-                        let x = 120 // bar._model.x + 1;
+                        let x = 15 // bar._model.x + 1;
                         let y = bar._model.y;
 
                         let curLabel = dataset._meta[0].data[index]._model.label
@@ -286,7 +290,7 @@
                     "display": false,
                     labels: {
                         fontSize: 10,
-                        padding: 20
+                        padding: 0
                     }
                 },
                 "tooltips": {
@@ -295,7 +299,7 @@
 
                 layout: {
                     padding: {
-                        left: 20,
+                        left: 140,
                         right: 0,
                         top: 0,
                         bottom: 0
@@ -346,14 +350,14 @@
                         },
                         "ticks": {
                             "beginAtZero": true,
-                            "display": true,
-                            padding: 25,
+                            "display": false,
+                            padding: 20,
                             labelOffset: 0,
                             mirror: false,
                             major: false,
                             reverse: false,
                             fontSize: 10,
-                            fontColor: "white",
+                            fontColor: "black",
                             fontFunction: function(tickIndex) {
                                 if (tickIndex % 2 !== 0) {
                                     return '14px "Gotham Book"';
