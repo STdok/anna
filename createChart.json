@@ -1,0 +1,170 @@
+[{
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.cti}}",
+
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "420",
+                "height": "200"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "cti": "{{body}}" },
+            "output": { "data": "{{body}}" }
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.connections}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "460",
+                "height": "480"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "connections": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.concgruence}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "405",
+                "height": "35"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "concgruence": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.conduct_detailed}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "500",
+                "height": "200"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "conduct_detailed": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.conduct}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "300",
+                "height": "40"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "conduct": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.conduct_contribution}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "400",
+                "height": "400"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "conduct_contribution": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.conditions}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "400",
+                "height": "400"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "conditions": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    },
+    {
+        "url": "/screenshot",
+        "method": "POST",
+        "qs": {},
+        "body": {
+
+            "url": "{{parameters.compass}}",
+
+            "viewport": {
+                "deviceScaleFactor": "{{parameters.deviceScaleFactor}}",
+                "width": "500",
+                "height": "500"
+            }
+        },
+        "headers": {},
+        "response": {
+            "type": "binary",
+            "temp": { "compass": "{{body}}" },
+            "output": "{{temp}}"
+        }
+    }
+]

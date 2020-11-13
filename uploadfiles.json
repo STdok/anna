@@ -1,0 +1,138 @@
+[{
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_compass": {
+                "filename": "im_compass.jpeg",
+                "contents": "{{parameters.im_compass}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_concgruence": {
+                "filename": "im_concgruence.jpeg",
+                "contents": "{{parameters.im_concgruence}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_conduct": {
+                "filename": "im_conduct.jpeg",
+                "contents": "{{parameters.im_conduct}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_conduct_contribution": {
+                "filename": "im_conduct_contribution.jpeg",
+                "contents": "{{parameters.im_conduct_contribution}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_conduct_detailed": {
+                "filename": "im_conduct_detailed.jpeg",
+                "contents": "{{parameters.im_conduct_detailed}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_connections": {
+                "filename": "im_connections.jpeg",
+                "contents": "{{parameters.im_connections}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "PATCH",
+        "qs": {},
+        "body": {
+            "im_cti": {
+                "filename": "im_cti.jpeg",
+                "contents": "{{parameters.im_cti}}",
+                "private": false
+
+            }
+        },
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    },
+    {
+        "url": "/obj/survey/{{parameters.id}}",
+        "method": "GET",
+        "qs": {},
+
+        "headers": {},
+        "response": {
+
+            "output": "{{body}}"
+        }
+    }
+]
