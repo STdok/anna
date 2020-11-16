@@ -7,14 +7,13 @@
 
     <style>
         body {
-            padding: 5px;
+            padding: 0px;
             margin: 0px;
         }
         
-        #canvas {
-            width: 405px;
+        .canvas {
+            width: 400px;
             height: 35px;
-            background-color: white;
             margin: 0px;
             position: absolute;
         }
@@ -54,11 +53,22 @@
         .rightPoint {
             transform: translatex(-50%) skewX(0deg);
         }
+        
+        #main {
+            left: 15px;
+            background-color: aquamarine;
+        }
     </style>
 </head>
 
 <body>
-    <div id="canvas">
+    <div id="main">
+
+
+
+
+    </div>
+    <!--<div id="canvas" class="canvas">
         <div class="line" style="left:0px">
 
         </div>
@@ -72,39 +82,119 @@
 
         </div>
 
-        <div class="point leftPoint" id="left">
+        <div class="point leftPoint left">
             <div class="pointText"> 3.5</div>
         </div>
-        <div class="point rightPoint" id="right">
+        <div class="point rightPoint right">
             <div class="pointText"> 3.5</div>
         </div>
-    </div>
+    </div> -->
     <script>
-        const data2 = {
-            "left": 1.4,
-            "right": 5,
-            "max": 5
-        }
+        const template = ' <div id=\"canvas\" class=\"canvas\"> <div class=\"line\" style=\"left:0px\"> </div><div class=\"line\" style=\"right:0px\"> </div><div class=\"line\" style=\"left:200px\"> </div><div class=\"line\" style=\"left:0px; top:25px;height: 0.5px; width: 400px;\"> </div><div class=\"point leftPoint left\"> <div class=\"pointText\"> 3.5</div></div><div class=\"point rightPoint right\"> <div class=\"pointText\"> 3.5</div></div></div>'
+            //   $("#main").append(template)
+    </script>
+
+    <script>
         const searchParams = new URLSearchParams(window.location.search)
 
+        // 415 px ?options={"left":3.6,"right":3,"max":5}
+
+        const data2 = {
+            "height": 500,
+            "width": 400,
+            "params": {
+                "overall": {
+                    "left": 1.4,
+                    "right": 4
+                },
+                "grit": {
+                    "left": 2,
+                    "right": 3
+                },
+                "perseverance": {
+                    "left": 3.6,
+                    "right": 2.6
+                },
+                "candor": {
+                    "left": 2.5,
+                    "right": 1.8
+                },
+                "passion": {
+                    "left": 4.9,
+                    "right": 2.4
+                },
+                "vulnerability": {
+                    "left": 4.2,
+                    "right": 1.9
+                }
+            }
+        }
         const data = JSON.parse(searchParams.get('options')) || data2
-            //?options={"left":3.6,"right":3,"max":5}
-        const width = 400
+        const width = data.width
 
-        const leftCss = {
-            right: width / 2 + data.left / data.max * width / 2 + "px"
+
+        const params = data.params
+
+
+
+
+
+        $('#main').css({
+            position: "absolute",
+            height: data.height + 35 + 'px',
+            width: width + 'px'
+
+        })
+
+        function addTemplate(item, index, margin) {
+
+            let curId = item
+            let curTemplate = template.replace('id=\"canvas\"', 'id=\"' + curId + '\"')
+            $("#main").append(curTemplate)
+
+
+            $('#' + curId).css({
+                top: index * data.height / 5 + "px"
+            })
+
+
+
+            console.log(curId)
+
+            let curData = params[item]
+            curData.max = 5
+
+            generate(curData, "#" + curId)
 
         }
-        const rightCss = {
-            left: width / 2 + data.right / data.max * width / 2 + "px"
 
+
+
+
+
+
+
+        function generate(data, canvas) {
+
+
+            let leftCss = {
+                right: width / 2 + data.left / data.max * width / 2 + "px"
+
+            }
+            let rightCss = {
+                left: width / 2 + data.right / data.max * width / 2 + "px"
+
+            }
+
+
+
+            $(canvas + " .left").css(leftCss)
+            $(canvas + " .left .pointText").text(data.left)
+            $(canvas + " .right").css(rightCss)
+            $(canvas + " .right .pointText").text(data.right)
         }
 
 
-
-        $("#left").css(leftCss)
-        $("#left .pointText").text(data.left)
-        $("#right").css(rightCss)
-        $("#right .pointText").text(data.right)
+        Object.keys(params).forEach(addTemplate)
     </script>
 </body>
