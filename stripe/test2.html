@@ -1,0 +1,24 @@
+<html>
+
+<head>
+    <title>Buy cool new product</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+
+<body>
+    <button id="checkout-button" onclick="get()">Checkout</button>
+
+    <script>
+        function get() {
+            var stripe = Stripe('pk_test_51HaGuTBcTHMJHUOIQ3Vu3BuBBDOEKD5mqT4mEYAtY3FQ39UpYGow3oJf8hRAIZaQ7wQfQyKRqM8PiMlyE1y0rlap00Rx5PMQi2');
+
+            let session = 'cs_test_a14556nVx62EhxBsLTUa6ud4V4uuuQBJAktHTh9lCHk4wD7PkIwl2l0OJE'
+
+            stripe.redirectToCheckout({
+                sessionId: session
+            })
+        }
+    </script>
+</body>
+
+</html>

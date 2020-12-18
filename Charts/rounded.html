@@ -23,13 +23,19 @@
     </div>
 
     <script>
-        const data2 = [20, 200]
+        const data2 = [20, 200, 'black']
         const searchParams = new URLSearchParams(window.location.search)
         const options = JSON.parse(searchParams.get('options')) || data2
-            //http://127.0.0.1:5500/rounded.html?options=[23]
+        const color = searchParams.get('color') || null
+
+        //http://127.0.0.1:5500/rounded.html?options=[23]
         options[1] = 100 - options[0]
 
-        const opacity = 0.5 + data2[0] / 200
+        var opacity = 0.5 + data2[0] / 200
+
+        if (options[3]) {
+
+        }
         var data = {
 
             datasets: [{
@@ -42,7 +48,10 @@
                 ]
             }]
         };
-
+        if (color) {
+            data.datasets[0].backgroundColor = [color, "rgb(0, 0, 0,0)"]
+            console.log(color)
+        }
 
 
         var ctx = document.getElementById("myChart");
