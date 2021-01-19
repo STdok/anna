@@ -19,7 +19,7 @@
     </div>
     <script>
         const settings2 = {
-           "colors": ["78A720", "23a77c", "1d78a8", "2e3896", "773595", "a72022"],
+            "colors": ["78A720", "23a77c", "1d78a8", "2e3896", "773595", "a72022"],
             "font": "Poppins",
             "font_size": "9",
             "font_style": "bold"
@@ -150,7 +150,8 @@
                         onComplete: function () {
                             var chartInstance = this.chart,
                                 ctx = chartInstance.ctx;
-                            ctx.font = Chart.helpers.fontString(settings.font_size, settings.font_style, Chart
+                            ctx.font = Chart.helpers.fontString(settings.font_size, settings.font_style,
+                                Chart
                                 .defaults.global.defaultFontFamily);
                             ctx.textAlign = 'center';
 
@@ -196,48 +197,64 @@
                     },
                     scales: {
                         yAxes: [{
+                            scaleLabel: {
+                                display: false
+                            },
+
+                            // stacked:true,
+                            position: "left",
                             ticks: {
-                                suggestedMin: -6,
-                                suggestedMax: 6,
-                                display: false,
-                                // maxTicksLimit: 6,
-                                "beginAtZero": true,
+                                padding: 5,
+                                stepSize: 20,
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                display: true,
+                                fontSize: 10,
+                                fontStyle:"normal"
+                                // maxTicksLimit: 100,
+                                //"beginAtZero": true,
                             },
                             "gridLines": {
-                                "offsetGridLines": false,
                                 "display": true,
                                 drawBorder: false,
                                 lineWidth: 1,
                                 drawOnChartArea: true,
                                 drawTicks: false,
                                 zeroLineBorderDashOffset: 0,
-                                zeroLineWidth: 2,
+                                zeroLineWidth: 1,
                                 zeroLineColor: "grey",
                                 offsetGridLines: false,
                                 z: 0,
-                                color: "grey"
+                                color: "grey",
+                                fontSize: 9
                             }
                         }],
                         xAxes: [{
+                            // stacked:true,
                             ticks: {
-                                suggestedMin: -6,
-                                suggestedMax: 6,
-                                display: false,
-                                // maxTicksLimit: 6,
-                                "beginAtZero": true,
+                                padding: 5,
+                                stepSize: 20,
+                                fontStyle:"normal",
+                                suggestedMin: 0,
+                                suggestedMax: 100,
+                                display: true,
+                                fontSize: 9
+
+                                //maxTicksLimit: 100,
+                                //"beginAtZero": true,
                             },
                             "gridLines": {
                                 "offsetGridLines": false,
                                 "display": true,
-                                drawBorder: false,
+                                drawBorder: true,
                                 lineWidth: 1,
                                 drawOnChartArea: true,
                                 drawTicks: false,
                                 zeroLineBorderDashOffset: 5,
-                                zeroLineWidth: 2,
+                                zeroLineWidth: 1,
                                 zeroLineColor: "grey",
                                 offsetGridLines: false,
-                                z: 0,
+                                z: 10,
                                 color: "grey"
                             }
                         }]
@@ -245,7 +262,6 @@
                 }
             });
         };
-        console.log(Chart.defaults.global)
     </script>
 </body>
 
