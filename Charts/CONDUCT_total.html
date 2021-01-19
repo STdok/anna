@@ -30,6 +30,7 @@
             padding: 0px;
             margin: 0px;
             position: absolute;
+            
         }
         
         .canvas .graph {
@@ -46,7 +47,7 @@
         
         .line {
             background-color: black;
-            width: 1px;
+            width: 0.5px;
             height: 50px;
             position: absolute;
             left: 150px;
@@ -67,6 +68,12 @@
     <div class="main">
 
         <div id="canvas-1" class="canvas">
+            <div class='canvasHeader'>
+                <h2> IDEATE</h2>
+            </div>
+            <div class='canvasLine'>
+                
+            </div>
             <div class="graph left" id="left" style="width: 40px; background-color:red; ">
                 <div class="span">2.0 </div>
             </div>
@@ -74,9 +81,20 @@
             <div class="graph right" id="right" style="width: 40px;background-color: chartreuse; ">
                 <div class="span">4.2</div>
 
+            </div>
+
+            <div class='canvasFooter'>
+                <div class="footer1">ASPIRER</div>
+                <div class="footer2">ADVENTURER</div>
             </div>
         </div>
         <div id="canvas-2" class="canvas">
+            <div class='canvasHeader'>
+                <h2> PLAN</h2>
+            </div>
+            <div class='canvasLine'>
+                
+            </div>
             <div class="graph left" id="left" style="width: 40px; background-color:red; ">
                 <div class="span">2.0 </div>
             </div>
@@ -84,9 +102,21 @@
             <div class="graph right" id="right" style="width: 40px;background-color: chartreuse; ">
                 <div class="span">4.2</div>
 
+          
+            </div>
+
+            <div class='canvasFooter'>
+                <div class="footer1">AMBASSADOR</div>
+                <div class="footer2">ARCHITECT</div>
             </div>
         </div>
         <div id="canvas-3" class="canvas">
+            <div class='canvasHeader'>
+                <h2> ACT</h2>
+            </div>
+            <div class='canvasLine'>
+                
+            </div>
             <div class="graph left" id="left" style="width: 40px; background-color:red; ">
                 <div class="span">2.0 </div>
             </div>
@@ -95,12 +125,23 @@
                 <div class="span">4.2</div>
 
             </div>
+       
+       
+            <div class='canvasFooter'>
+                <div class="footer1">ADVOCATE</div>
+                <div class="footer2">ACTIVATOR</div>
+            </div>
+       
+       
+       
         </div>
 
     </div>
 
 
     <script>
+
+
         const colors = {
 
             "blue": "#2220A7",
@@ -123,25 +164,36 @@
             "architect": 50,
             "advocate": 80,
             "activator": 20,
-            "lineHeight": 50,
-            "height": 500
+            "lineHeight": 60,
+            "height": 430
         }
 
 
+ const settings2 = {
+           "colors": ["78A720", "23a77c", "1d78a8", "2e3896", "773595", "a72022"],
+            "font": "Poppins",
+            "font_size": "9",
+            "font_size2": "6",
+            "font_size3": "10",
+            "font_style": "bold"
+        }
 
+const settings = JSON.parse(searchParams.get('settings')) || settings2
 
+settings.colors = settings.colors.map(item => {
 
-
+return '#' + item
+})
 
 
         const datasetColors = {
 
-            "aspirer": [colors.green, "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-            "adventurer": [colors.greenm, "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
-            "ambassador": [colors.celadon, "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
-            "architect": [colors.blue, "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
-            "advocate": [colors.violet, "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
-            "activator": [colors.fire, "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
+            "aspirer": [settings.colors[0], "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+            "adventurer": [settings.colors[1], "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
+            "ambassador": [settings.colors[2], "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
+            "architect": [settings.colors[3], "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
+            "advocate": [settings.colors[4], "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
+            "activator": [settings.colors[5], "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
 
         }
         const data1 = {
@@ -173,7 +225,8 @@
         const options = {
             width: 300,
             height: param2.lineHeight,
-            margin: param2.height / 2 - 25
+            margin: param2.height / 2 - 25,
+            divheight:param2.height/3
 
         }
 
@@ -200,10 +253,10 @@
 
 
 
-        generate(data1, "#canvas-1", 0, calulate(data1))
+        generate(data1, "#canvas-1", param2.height*0.1, calulate(data1))
 
         generate(data2, "#canvas-2", param2.height / 2 - options.height / 2, calulate(data2))
-        generate(data3, "#canvas-3", param2.height - options.height, calulate(data3))
+        generate(data3, "#canvas-3", param2.height - options.height-param2.height*0.10, calulate(data3))
 
 
         $(".main").css({
@@ -212,10 +265,58 @@
         })
 
         function generate(data, canvas, margin, calc) {
+            $(canvas + ' .canvasHeader').css({
+                "left": options.width / 2 + "px",
+                "top": "-55%",
+                "height": options.height + "px",
+                "position":"absolute",
+                "margin":"0px",
+                transform: "translateX(-50%)",
+                "font-size":settings.font_size2+"px",//"6px",
+                "font-family":settings.font,
+                color:settings.colors[1]
+            })
+            $(canvas + ' .canvasLine').css({
+                width:options.width*0.8+"px",
+                "background-color":"black",
+                "left": options.width / 2 + "px",
+                "top": "-20%",
+                "height": "1px",//options.height + "px",
+                "position":"absolute",               
+                transform: "translateX(-50%)"
+                
+            })
+            $(canvas + ' .canvasFooter').css({
+                "left": options.width / 2 + "px",
+                "top": "-55%",
+                "height": options.height + "px",
+                //"position":"absolute",
+                "margin":"0px",
+                //transform: "translateX(-50%)",
+                "font-size":settings.font_size3+"px",
+                "font-family":settings.font,
+                color:"#544c4c",
+                "font-weight":"bold",
+                "margin-top":"20px",
+                padding:"40px"
+
+            })
+
+            $(canvas + ' .footer1').css({
+                "float":"left"
+                
+
+            })
+            $(canvas + ' .footer2').css({
+                "float":"right"
+
+            })
+
+            //let myMargin = margin+100
             $(canvas).css({
                 "width": options.width + "px",
                 "height": options.height + "px",
-                "top": margin + "px"
+                "top":margin + "px"
             })
             $(canvas + ' .line').css({
                 "left": options.width / 2 + "px",
@@ -243,8 +344,9 @@
 
             }).text(data.right + " %")
             $(canvas + ' .graph').css({
-                "font-size": "9px"
-
+                "font-size": settings.font_size+"px",
+                "font-family":settings.font,
+                "font-weight": settings.font_style
             })
         }
     </script>

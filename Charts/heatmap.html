@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 
 <head>
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+        integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <style>
         #canvas {
             width: 400px;
@@ -10,7 +13,7 @@
             background-color: white;
             position: absolute;
         }
-        
+
         .data {
             width: 80px;
             height: 80px;
@@ -22,7 +25,7 @@
             text-align: center;
             vertical-align: middle;
         }
-        
+
         .datatext {
             top: 40px;
             left: 40px;
@@ -32,7 +35,7 @@
             font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
             font-size: 18px;
         }
-        
+
         .labeltext {
             top: 40px;
             left: 5px;
@@ -43,7 +46,7 @@
             font-size: 9px;
             line-height: 11px;
         }
-        
+
         .label {
             position: absolute;
             font-size: 9px;
@@ -74,17 +77,33 @@
             [58, 79, 61, 35]
         ]
 
+        const settings2 = {
+            "colors": ["a67d2c", "d8a330", "e2bc69", "a6a5a5", "858585", "626363"],
+            'font_color':"626363",
+            'font_color2':"ffffff",
+            "font": "Poppins",
+            "font2": "Poppins",
+            "font_size": "10",
+            "font_size2": "16",
+            "font_style": "bold",
+            "font_style2": "bold"
+
+        }
         //?options=[[72,58,75,82],[48,28,65,64],[88,92,82,84],[26,23,14,61],[58,79,61,35]]
 
         const searchParams = new URLSearchParams(window.location.search)
         const data = JSON.parse(searchParams.get('options')) || data2
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+        settings.colors = settings.colors.map(item => {
 
+            return '#' + item
+        })
 
         const xlabels = ["OVERALL", "DISCUSS", "DECIDE", "DO"]
-        const ylabels = ["WITHIN THE TEAM", "WITH SUPERIORS", "WITH SUBORDINATES", "WITH CLIENTS AND CUSTOMERS", "WITH SUPPLIERS AND PARTNERS"]
-        const colors = [
-            "#a67d2c", "#d8a330", "#e2bc69", "#a6a5a5", "#858585", "#626363"
+        const ylabels = ["WITHIN THE TEAM", "WITH SUPERIORS", "WITH SUBORDINATES", "WITH CLIENTS AND CUSTOMERS",
+            "WITH SUPPLIERS AND PARTNERS"
         ]
+        const colors = settings.colors
 
 
 
@@ -127,8 +146,10 @@
                 let num = data[i][j]
 
                 let html = "<div class=\"data\" id=\"data-" + i + j + "\"> <div class=\"datatext\"> </div> </div>"
-                let yhtml = "<div class=\"label\" id=\"label-" + i + j + "\">" + " <div class=\"labeltext\"> </div></div>"
-                let xhtml = "<div class=\"label\" id=\"xlabel-" + i + j + "\">" + " <div class=\"labeltext\"> </div></div>"
+                let yhtml = "<div class=\"label\" id=\"label-" + i + j + "\">" +
+                    " <div class=\"labeltext\"> </div></div>"
+                let xhtml = "<div class=\"label\" id=\"xlabel-" + i + j + "\">" +
+                    " <div class=\"labeltext\"> </div></div>"
 
 
 
@@ -182,7 +203,26 @@
 
 
 
+
                 $("#data-" + i + j + " .datatext").text(num)
+
+
+                let css = {
+                    color: '#' + settings.font_color,
+                    "font-size": settings.font_size + 'px',
+                    "font-family": settings.font,
+                    "font-weight": settings.font_style
+                }
+                let css2 = {
+                    color: '#' + settings.font_color2,
+                    "font-size": settings.font_size2 + 'px',
+                    "font-family": settings.font2,
+                    "font-weight": settings.font_style2
+                }
+                $('.labeltext').css(css)
+                $('.datatext').css(css2)
+
+
 
             }
 

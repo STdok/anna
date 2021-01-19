@@ -3,9 +3,26 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
 
+        <style> 
+        .chart-container {
+            padding-left:0px
+        }
+        
+        #labels{
+            position: absolute;
+            top:15px;            
+        }
+
+        #label3{
+            position: absolute;
+            top:0px;
+            height: 66px;      }
+        </style>
 </head>
 
 <body>
@@ -13,6 +30,8 @@
     <div class="chart-container" style="width:500">
         <canvas id="chartjs-2"></canvas>
     </div>
+
+  
 
 
     <script>
@@ -22,7 +41,7 @@
             return data[0].map((_, colIndex) => data.map(row => row[colIndex]))
         }
         const data3 = {
-            "type": "aspirer",
+            "type": "adventurer",
             "data": [
                 [2, 3, 3, 7, 3, 1],
                 [6, 2, 6, 8, 3, 2],
@@ -30,7 +49,12 @@
             ]
 
         }
-
+        const settings2 = {
+            "colors": ["78a841", "a0cc3b", "b9d76d", "a6a5a5", "858585", "626363"],
+            "font": "Poppins",
+            "font_size": "12",
+            "font_style": "bold"
+        }
         console.log(transpose(data3.data))
         const data2 = {
             "type": "aspirer",
@@ -70,6 +94,12 @@
 
         const searchParams = new URLSearchParams(window.location.search)
 
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+
+        settings.colors = settings.colors.map(item => {
+
+            return '#' + item
+        })
         const data = JSON.parse(searchParams.get('options')) || data3
 
         data.data = transpose(data.data)
@@ -81,9 +111,9 @@
 
 
         Chart.defaults.global.datasets.barThickness = 15,
-            Chart.defaults.global.defaultFontFamily = 'Poppins';
-        Chart.defaults.global.defaultFontSize = 12;
-        Chart.defaults.global.defaultFontStyle = 'bold';
+            Chart.defaults.global.defaultFontFamily = settings.font;
+        Chart.defaults.global.defaultFontSize = settings.font_size;
+        Chart.defaults.global.defaultFontStyle = settings.font_style;
         const datasetColors = {
 
             "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
@@ -97,27 +127,27 @@
 
         const labelOptions = {
             aspirer: {
-                colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-                labels: ["GOALS         ", "VALUES       ", "VISION       "]
+                colors: settings.colors,//["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+                labels: ["GOALS        ", "VALUES      ", "VISION      "]
             },
             adventurer: {
-                colors: datasetColors.adventurer,
+                colors: settings.colors,
                 labels: ["UNCERTAINTY   ", ["RISK  ", "TRANSPARENCY  "], "COMFORT ZONE  "]
             },
             ambassador: {
-                colors: datasetColors.ambassador,
+                colors: settings.colors,
                 labels: ["LOGIC        ", "INFORMATION   ", "OPTIONS      "]
             },
             architect: {
-                colors: datasetColors.architect,
+                colors: settings.colors,
                 labels: ["POTENTIAL     ", "AVAILABILITY  ", "NEEDS         "]
             },
             advocate: {
-                colors: datasetColors.advocate,
+                colors: settings.colors,
                 labels: ["CENTEREDNESS  ", "UNDERSTANDING ", "AWARENESS     "]
             },
             activator: {
-                colors: datasetColors.activator,
+                colors: settings.colors,
                 labels: ["LOGIC         ", "INFORMATION   ", "CHANGE THIS   "]
             }
 
@@ -131,28 +161,28 @@
 
         // VALUES ON BAR
         const animation = {
-                duration: 0,
-                "onComplete": function() {
-                    var chartInstance = this.chart,
-                        ctx = chartInstance.ctx;
+            duration: 0,
+            "onComplete": function () {
+                var chartInstance = this.chart,
+                    ctx = chartInstance.ctx;
 
-                    ctx.font = Chart.helpers.fontString(8, "normal", Chart.defaults.global.defaultFontFamily);
-                    ctx.textAlign = 'center';
-                    ctx.textBaseline = 'bottom';
-                    ctx.fillStyle = "grey"
+                ctx.font = Chart.helpers.fontString(8, "normal", Chart.defaults.global.defaultFontFamily);
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'bottom';
+                ctx.fillStyle = "grey"
 
-                    this.data.datasets.forEach(function(dataset, i) {
-                        var meta = chartInstance.controller.getDatasetMeta(i);
-                        meta.data.forEach(function(bar, index) {
-                            var data = dataset.data[index];
-                            if (data > 0) {
-                                ctx.fillText(data, bar._model.x - 10, bar._model.y - 25);
-                            }
-                        });
+                this.data.datasets.forEach(function (dataset, i) {
+                    var meta = chartInstance.controller.getDatasetMeta(i);
+                    meta.data.forEach(function (bar, index) {
+                        var data = dataset.data[index];
+                        if (data > 0) {
+                            ctx.fillText(data, bar._model.x - 10, bar._model.y - 25);
+                        }
                     });
-                }
+                });
             }
-            // VALUES ON BAR
+        }
+        // VALUES ON BAR
 
 
         const opt = {
@@ -210,7 +240,7 @@
 
                 layout: {
                     padding: {
-                        left: 20,
+                        left: 0,
                         right: 0,
                         top: 0,
                         bottom: 0
@@ -268,14 +298,17 @@
                             "display": false
                         },
                         "ticks": {
-                            "beginAtZero": true,
-                            "display": true,
-                            padding: 15
+                            "beginAtZero": false,
+                            "display": false,
+                            padding: 0
                         }
                     }]
                 }
             }
         });
-        chart.canvas.parentNode.style.height = '128px';
+        chart.canvas.parentNode.style.height = '200px';
     </script>
+
+
+
 </body>

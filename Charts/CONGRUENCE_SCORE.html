@@ -95,7 +95,15 @@
     </script>
 
     <script>
+
+const settings2 = {
+            "color": '1d78a8',//"1d78a8",
+            "font": "Poppins",
+            "font_size": "12",
+            "font_style": "bold"
+        }
         const searchParams = new URLSearchParams(window.location.search)
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
 
         // 415 px ?options={"height":500,"width":400,"params":{"overall":{"left":1.4,"right":4},"grit":{"left":2,"right":3},"perseverance":{"left":3.6,"right":2.6},"candor":{"left":2.5,"right":1.8},"passion":{"left":4.9,"right":2.4},"vulnerability":{"left":4.2,"right":1.9}}}
 
@@ -178,7 +186,8 @@
 
 
             let leftCss = {
-                right: width / 2 + data.left / data.max * width / 2 + "px"
+                right: width / 2 + data.left / data.max * width / 2 + "px",
+                "color":"white"
 
             }
             let rightCss = {
@@ -186,12 +195,32 @@
 
             }
 
+            let css = {
+                color:'#'+settings.color,
+                "font-size":settings.font_size+'px',
+                "font-family":settings.font,
+                "font-weight":settings.font_style
+            }
 
-
+            let css2 = {
+                "background-color":'#'+settings.color
+            }
+            
             $(canvas + " .left").css(leftCss)
             $(canvas + " .left .pointText").text(data.left)
             $(canvas + " .right").css(rightCss)
             $(canvas + " .right .pointText").text(data.right)
+
+            
+            $(canvas + " .left .pointText").css(css)
+            $(canvas + " .right .pointText").css(css)
+            $(canvas + " .point").css(css2)
+            $(canvas + " .line").css(css2)
+
+
+
+
+
         }
 
 

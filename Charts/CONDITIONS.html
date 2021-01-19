@@ -16,6 +16,14 @@
         <canvas id="chartjs-2"></canvas>
     </div>
     <script>
+
+        const settings2 = {
+            "colors": ["4450a2", "4450a2", "6668b0", "a6a5a5", "858585", "626363"],
+            "font": "poppins",
+            "font_size": "10",
+            "font_style":"bold"
+        }
+
         var data2 = [
             [5, 18, 14, 28, 22, 14],  
             [21, 23, 20, 0, 21, 15],  
@@ -26,6 +34,12 @@
         ]
 
         const searchParams = new URLSearchParams(window.location.search)
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+
+        settings.colors = settings.colors.map(item=>{
+
+            return '#'+item
+        })
 
         var data = JSON.parse(searchParams.get('options')) || genData()
 
@@ -103,12 +117,13 @@
 
 
         Chart.defaults.global.datasets.barThickness = 15,
-            Chart.defaults.global.defaultFontFamily = 'Poppins';
-        Chart.defaults.global.defaultFontSize = 10;
-        Chart.defaults.global.defaultFontStyle = 'bold';
+        Chart.defaults.global.defaultFontFamily = settings.font;
+        Chart.defaults.global.defaultFontSize = settings.font_size;
+        Chart.defaults.global.defaultFontStyle = settings.font_style;
 
         const aspirer = {
-            colors: ["#2e3896", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
+           // colors:["#4450a2", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],//settings.colors,
+            colors:settings.colors,
 
             labels: [
                 ["PSYCHOLOGICAL", "SAFETY"],
@@ -117,17 +132,6 @@
         }
 
 
-
-        const datasetColors = {
-
-            "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-            "adventurer": ["#23a77c", "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
-            "ambassador": ["#1d78a8", "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
-            "architect": ["#2e3896", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
-            "advocate": ["#773595", "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
-            "activator": ["#a72022", "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
-
-        }
 
         const set = aspirer
 

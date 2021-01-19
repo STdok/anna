@@ -4,7 +4,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
 
     <style>
         .legendTable {
@@ -13,7 +15,7 @@
             width: 100%;
             table-layout: fixed;
         }
-        
+
         canvas {
             background-color: white;
         }
@@ -108,55 +110,65 @@
             "name": "teamwork",
             "data": 20,
             "sort": 40
-        }] 
+        }]
 
-
+        const settings2 = {
+            "color": "773595",
+            "font": "poppins",
+            "font_size": "9",
+            "font_style":"normal"
+        }
         const searchParams = new URLSearchParams(window.location.search)
 
         const data = JSON.parse(searchParams.get('options')) || data2
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+
+
+
+
 
         var map = {
             spir: 'SPIRITUALITY',
-             
+
             appr: 'APPRECIATION OF AESTHETICS & EXCELLENCE',
-             
+
             social: 'SOCIAL INTELLIGENCE',
-             
+
             caring: 'CARING',
-             
+
             selfRefulation: 'SELF REGULATION',
-             
+
             creativity: 'CREATIVITY',
-             
+
             prudence: 'PRUDENCE',
-             
+
             critical: 'CRITICAL THINKING',
-             
+
             perspective: 'PERSPECTIVE',
-             
+
             curosity: 'CURIOSITY',
-             
+
             love: 'LOVE OF LEARNING',
-             
+
             fair: 'FAIRNESS',
-             
+
             leader: 'LEADERSHIP',
-             
+
             forgive: 'FORGIVENESS',
-             
+
             kindness: 'KINDNESS',
-             
+
             gratitude: 'GRATITUDE',
-             
+
             humor: 'HUMOR',
-             
+
             humility: 'HUMILITY',
-             
+
             hope: 'HOPE',
-             
+
             teamwork: 'TEAMWORK'
         }
-        data.sort(function(a, b) {
+        data.sort(function (a, b) {
             if (a.sort !== b.sort) {
                 return a.sort - b.sort
             } else return b.data - a.data
@@ -182,58 +194,31 @@
     <script>
         Chart.defaults.global.elements.rectangle.borderWidth = 0.5
         Chart.defaults.global.elements.rectangle.borderColor = "#ffffff"
-
-
-
         Chart.defaults.global.datasets.barThickness = 15,
-            Chart.defaults.global.defaultFontFamily = 'Poppins';
-        Chart.defaults.global.defaultFontSize = 10;
-        Chart.defaults.global.defaultFontStyle = 'normal';
+        Chart.defaults.global.defaultFontFamily = settings.font;
+        Chart.defaults.global.defaultFontSize = settings.font_size;
+        Chart.defaults.global.defaultFontStyle = settings.font_style;
 
-        const aspirer = {
-            colors: ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-            labels: ["GOALS", "VALUES", "VISION"]
-        }
+
         var changeLabels = []
-
-
-
-
-
         const labels = genLabels
-
-
-
-        const datasetColors = {
-
-            "aspirer": ["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
-            "adventurer": ["#23a77c", "#56c09a", "#7bcab2", "#a6a5a5", "#858585", "#626363"],
-            "ambassador": ["#1d78a8", "#2c9dd7", "#68b8e4", "#a6a5a5", "#858585", "#626363"],
-            "architect": ["#2e3896", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],
-            "advocate": ["#773595", "#894f9f", "#a16faf", "#a6a5a5", "#858585", "#626363"],
-            "activator": ["#a72022", "#da3131", "#e36b69", "#a6a5a5", "#858585", "#626363"]
-
-        }
-
-        const set = aspirer
-
         const opt = {
             barThickness: 10
         }
         const empty = {}
         const animation = {
             duration: 0,
-            onComplete: function() {
+            onComplete: function () {
                 var chartInstance = this.chart,
                     ctx = chartInstance.ctx;
-                ctx.font = Chart.helpers.fontString(9, "normal", Chart.defaults.global.defaultFontFamily);
+                ctx.font = Chart.helpers.fontString(settings.font_size, settings.font_style, Chart.defaults.global.defaultFontFamily);
                 ctx.textAlign = 'left';
 
                 ctx.textBaseline = 'bottom';
                 //  console.log(this.chart)
-                this.data.datasets.forEach(function(dataset, i) {
+                this.data.datasets.forEach(function (dataset, i) {
                     var meta = chartInstance.controller.getDatasetMeta(i);
-                    meta.data.forEach(function(bar, index) {
+                    meta.data.forEach(function (bar, index) {
                         var data = dataset.label;
                         ctx.fillStyle = "grey" //dataset.backgroundColor;
                         let x = 15 // bar._model.x + 1;
@@ -241,7 +226,7 @@
 
                         let curLabel = dataset._meta[0].data[index]._model.label
                         let text = "    " + curLabel
-                            //  console.log(dataset._meta[0].data[index]._model.label)
+                        //  console.log(dataset._meta[0].data[index]._model.label)
 
                         console.log(ctx)
                         var calcX = x
@@ -254,7 +239,7 @@
 
                             ctx.fillText(text1, x, y + 0);
                             ctx.fillText(text2, x, y + 10);
-                            ctx.fillStyle = "#773595"
+                            ctx.fillStyle = "#"+settings.color
 
                             ctx.fillText(index + 1, x - 5, y + 5);
 
@@ -262,7 +247,7 @@
                         } else {
 
                             ctx.fillText(text, x, y + 5);
-                            ctx.fillStyle = "#773595"
+                            ctx.fillStyle = "#"+settings.color
                             ctx.fillText(index + 1, x - 5, y + 5);
 
                         }
@@ -283,7 +268,7 @@
                 "labels": labels,
                 "datasets": [{
                     "label": "Dataset 1",
-                    "backgroundColor": "#773595",
+                    "backgroundColor": '#'+settings.color,//"#773595",
                     barThickness: opt.barThickness,
                     "data": genData
                 }]
@@ -366,14 +351,14 @@
                             reverse: false,
                             fontSize: 10,
                             fontColor: "black",
-                            fontFunction: function(tickIndex) {
+                            fontFunction: function (tickIndex) {
                                 if (tickIndex % 2 !== 0) {
                                     return '14px "Gotham Book"';
                                 } else {
                                     return '30px "Gotham Book"';
                                 }
                             },
-                            callback: function(value, index, values) {
+                            callback: function (value, index, values) {
                                 //console.log(this)
                                 this._ticks[index].label = "some"
 
