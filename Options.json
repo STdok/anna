@@ -1,0 +1,49 @@
+{
+    "Option Agreement":[
+      
+      "Strongly disagree",
+      "Disagree",
+      "Somewhat disagree",
+      "Somewhat Agree",
+      "Agree",
+      "Strongly Agree"
+      ],
+    "Option Frequency":[
+      "Hardly ever",
+      "Rarely",
+      "Sometimes",
+      "Often",
+      "Usually",
+      "Almost Always"
+      ],
+      "Option Qualities":[
+        
+        "Aesthetic Appreciation",
+        "Caring",
+        "Creativity",
+        "Critical Thinking",
+        "Curiosity",
+        "Fairness",
+        "Forgiveness",
+        "Gratitude",
+        "Hope",
+        "Humility",
+        "Humor",
+        "Kindness",
+        "Leadership",
+        "Love of Learning",
+        "Perspective",
+        "Prudence",
+        "Self Regulation",
+        "Spirituality",
+        "Teamwork"
+        ],
+      "Option Scale":[
+        "1",
+        "2",
+        "3",
+        "4",
+        "5"
+        ]  
+      
+  }
