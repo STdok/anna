@@ -8,21 +8,22 @@
         rel="stylesheet">
 
 
-        <style> 
+    <style>
         .chart-container {
-            padding-left:0px
-        }
-        
-        #labels{
-            position: absolute;
-            top:15px;            
+            padding-left: 0px
         }
 
-        #label3{
+        #labels {
             position: absolute;
-            top:0px;
-            height: 66px;      }
-        </style>
+            top: 15px;
+        }
+
+        #label3 {
+            position: absolute;
+            top: 0px;
+            height: 66px;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,7 +32,7 @@
         <canvas id="chartjs-2"></canvas>
     </div>
 
-  
+
 
 
     <script>
@@ -42,10 +43,44 @@
             return data[0].map((_, colIndex) => data.map(row => row[colIndex]))
         }
 
-        function roundData(data){
-            let sum=data[1]+data[2]+data[3]+data[4]+data[0]
-            data[5]=100-sum
-           // return 
+        function roundData(data) {
+            let sum = data.reduce(function (accumulator, currentValue) {
+                return accumulator + currentValue
+            }, 0)
+
+
+            if (sum === 100) {
+
+            } else {
+                console.log("else")
+                for (i = 0; i <= data.length; i++) {
+
+                    if (sum === 100) {
+                        console.log("sum=100")
+                    } else if (sum !== 100 && data[i] === 0) {
+                        console.log("item=0")
+                    } else if (sum !== 100 && data[i] > 0) {
+
+                        if(sum<100){
+                        data[i] = data[i] + 100 - sum
+                        } else {
+                            data[i] = data[i] - sum+100
+
+                        }
+                        sum = data.reduce(function (accumulator, currentValue) {
+                            return accumulator + currentValue
+                        }, 0)
+
+                        console.log("item=" + data[i] + "  sum=" + sum)
+
+                    }
+
+                }
+
+            }
+
+            console.log(sum)
+            // return 
         }
         const data3 = {
             "type": "adventurer",
@@ -104,20 +139,23 @@
         const searchParams = new URLSearchParams(window.location.search)
 
         const settings = JSON.parse(searchParams.get('settings')) || settings2
-        const round=searchParams.get("round") ||false
-        console.log(round)
+        const round = searchParams.get("round") || false
 
         settings.colors = settings.colors.map(item => {
 
             return '#' + item
         })
         const data = JSON.parse(searchParams.get('options')) || data3
-console.log(data.data)
-        if(round==='yes'){
-        data.data.forEach(roundData)
-        }
-        data.data = transpose(data.data)
 
+        console.log(data.data)
+        if (round === 'yes') {
+            data.data.forEach(roundData)
+        }
+        console.log({
+            mydata: data
+        })
+
+        data.data = transpose(data.data)
     </script>
     <script>
         Chart.defaults.global.elements.rectangle.borderWidth = 0.5
@@ -142,7 +180,7 @@ console.log(data.data)
 
         const labelOptions = {
             aspirer: {
-                colors: settings.colors,//["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
+                colors: settings.colors, //["#78a841", "#a0cc3b", "#b9d76d", "#a6a5a5", "#858585", "#626363"],
                 labels: ["GOALS        ", "VALUES      ", "VISION      "]
             },
             adventurer: {
@@ -191,7 +229,7 @@ console.log(data.data)
                     meta.data.forEach(function (bar, index) {
                         var data = dataset.data[index];
                         if (data > 0) {
-                            ctx.fillText(data, bar._model.x - 15, bar._model.y +10);
+                            ctx.fillText(data, bar._model.x - 15, bar._model.y + 10);
                         }
                     });
                 });
@@ -222,6 +260,7 @@ console.log(data.data)
                     "backgroundColor": set.colors[1],
                     barThickness: opt.barThickness,
                     "data": data.data[1]
+
                 }, {
                     "label": "Dataset 3",
                     "backgroundColor": set.colors[2],
@@ -277,6 +316,7 @@ console.log(data.data)
                 },
                 "scales": {
                     "xAxes": [{
+
                         scaleLabel: {
                             display: false,
                             fontSize: 14,
@@ -304,6 +344,7 @@ console.log(data.data)
                         }
                     }],
                     "yAxes": [{
+
                         scaleLabel: {
                             display: false,
                             fontSize: 14,
