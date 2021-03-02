@@ -222,7 +222,7 @@
                 var chartInstance = this.chart,
                     ctx = chartInstance.ctx;
 
-                ctx.font = Chart.helpers.fontString(12, "bold", Chart.defaults.global.defaultFontFamily);
+                ctx.font = Chart.helpers.fontString(settings.font_size, settings.font_style, Chart.defaults.global.defaultFontFamily);
                 ctx.textAlign = 'center';
                 ctx.textBaseline = 'bottom';
                 ctx.fillStyle = "white"
