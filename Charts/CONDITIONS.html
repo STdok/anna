@@ -16,11 +16,47 @@
         <canvas id="chartjs-2"></canvas>
     </div>
     <script>
-   function roundData(data){
-            let sum=data[1]+data[2]+data[3]+data[4]+data[0]
-            data[5]=100-sum
-           // return 
+ function roundData(data) {
+            let sum = data.reduce(function (accumulator, currentValue) {
+                return accumulator + currentValue
+            }, 0)
+
+
+            if (sum === 100) {
+
+            } else {
+                console.log("else")
+                for (i = 0; i <= data.length; i++) {
+
+                    if (sum === 100) {
+                        console.log("sum=100")
+                    } else if (sum !== 100 && data[i] === 0) {
+                        console.log("item=0")
+                    } else if (sum !== 100 && data[i] > 0) {
+
+                        if(sum<100){
+                        data[i] = data[i] + 100 - sum
+                        } else {
+                            data[i] = data[i] - sum+100
+
+                        }
+                        sum = data.reduce(function (accumulator, currentValue) {
+                            return accumulator + currentValue
+                        }, 0)
+
+                        console.log("item=" + data[i] + "  sum=" + sum)
+
+                    }
+
+                }
+
+            }
+
+            console.log(sum)
+            // return 
         }
+       
+       
         const settings2 = {
             "colors": ["4450a2", "4450a2", "6668b0", "a6a5a5", "858585", "626363"],
             "font": "Poppins",
@@ -134,8 +170,8 @@
             colors:settings.colors,
 
             labels: [
-                ["PSYCHOLOGICAL", "SAFETY                       "],
-                ["GROWTH                   ", "MINDSET                    "], "RELIABILITY             ", "CREDIBILITY            ", "EMPATHY                 ", ["TEAM                           ", " ORIENTATION        "]
+                ["PSYCHOLOGICAL", "SAFETY"],
+                ["GROWTH", "MINDSET"], "RELIABILITY", "CREDIBILITY", "EMPATHY", ["TEAM", "ORIENTATION"]
             ]
         }
 
@@ -239,7 +275,7 @@
 
                 layout: {
                     padding: {
-                        left: 0,
+                        left: 100,
                         right: 0,
                         top: 0,
                         bottom: 0
@@ -288,13 +324,15 @@
                             "display": false
                         },
                         "ticks": {
+                            "mirror":true,
+                           
                             "beginAtZero": true,
                             "display": true,
                             font:{
                                 size:10,
                                 style:"normal"
                             },
-                            padding: 10
+                            padding: 100
                         }
                     }]
                 }
