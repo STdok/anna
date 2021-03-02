@@ -26,7 +26,20 @@
         const data2 = [20, 200, 'black']
         const searchParams = new URLSearchParams(window.location.search)
         const options = JSON.parse(searchParams.get('options')) || data2
+        
         const color = searchParams.get('color') || null
+
+        const settings2 = {
+            "color": "773595",
+            "font": "Arial",
+            "font_size": "9",
+            "font_style":"normal"
+        }
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+
+        Chart.defaults.global.defaultFontFamily = settings.font;
+        Chart.defaults.global.defaultFontSize = settings.font_size;
+        Chart.defaults.global.defaultFontStyle = settings.font_style;
 
         //http://127.0.0.1:5500/rounded.html?options=[23]
         options[1] = 100 - options[0]
