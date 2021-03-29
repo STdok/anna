@@ -104,14 +104,23 @@ now.forEach(item=>{bold(item,future)})
 future.forEach(item=>{bold(item,now)})
 
 
-function template(item,id,col){
+function template(item,id,col,future){
 
     let bold
     let color
 
-    item.bold ? bold="600":bold="200"
-    item.bold ? color=color1:color=color2
+  //  item.bold ? bold="600":bold="200"
+   // item.bold ? color=color1:color=color2
+
+  bold='200'// item.bold ? bold="200":bold="200"
+  color=color2
+
+   if(future){
+    item.bold ? color=color2:color=color1
+   }
+
     col?color=color3:color
+
 
     let template="<li class='words' style='font-weight:"+bold+";color:"+color+"'>"+item.option+" ("+item.value+")"
        $('#'+id).append(template) 
@@ -120,9 +129,10 @@ function template(item,id,col){
 }
 
 
-now.forEach(item=>{template(item,"now")})
+now.forEach(item=>{template(item,"now",false)})
 nowOthers.forEach(item=>{template(item,"now",true)})
-future.forEach(item=>{template(item,"future")})
+console.log(now)
+future.forEach(item=>{template(item,"future",false,true)})
 
 futureOthers.forEach(item=>{template(item,"future",true)})
 
