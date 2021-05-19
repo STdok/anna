@@ -124,6 +124,8 @@
         })
 
 
+        let nowOthers = []//now.slice(5, 20) //now.filter(item=>item.value===0).sort(sortMine)
+        now = now//.slice(0, 5) //.filter(item=>item.value>0);
 
 
         let future = options.map(x => {
@@ -136,46 +138,58 @@
         }) //.filter(item=>item.value>0);
 
 
+        
+        let futureOthers = future.filter(item => item.value === 0).sort(sortMine)
+        future = future.filter(item => item.value > 0).sort(function (a, b) {
+            return a - b;
+        })
 
 
-        const numberOfIndexes = 5
+        function bold(item, array) {
+            // console.log(item,array)
+            let words = array.map(x => x.option)
+            // console.log(words)
+            if (words.includes(item.option)) {
 
-        const color1 = "#7C20A7"
+                item.bold = true
+            } else {
+                item.bold = false
+            }
+
+        }
+        const color1 = "#2220A7"
         const color2 = "#A62076"
         const color3 = "#909090"
 
-       
-        future.forEach((item, index) => {
-            if (index < numberOfIndexes) {
-                item.bold = true
-            } else if (item.value === future[index].value && item.value > 0) {
-                item.bold = true
-            }
-        })
-        const futureInclude = future.filter(item => {
-            return item.bold
-        }).map(item => {
-            return item.option
-        })
-        console.log(futureInclude)
         now.forEach(item => {
-            if (futureInclude.includes(item.option)) {
-                item.bold=true
-                console.log(item.option)
-            }
+            bold(item, future)
         })
-
-
+        future.forEach(item => {
+            bold(item, now)
+        })
 
 
         function template(item, id, col, future, index) {
 
+            let bold
+            let color
 
-            let bold = '200'
-            let color = color3
-            if (item.bold) {
-                color = color1
+            //  item.bold ? bold="600":bold="200"
+            // item.bold ? color=color1:color=color2
+
+            bold = '200' // item.bold ? bold="200":bold="200"
+            color = color3
+if(id==='now'){
+    console.log(item.bold+"_____"+item.value)
+}
+            if (item.bold && id === "now" && item.value>0) {
+                color = color2
             }
+
+            if (index < 5 && item.value > 0 && id === "future" ) {
+                color = color2
+            }
+
 
             let template = "<li class='words' style='font-weight:" + bold + ";color:" + color + "'>" + item.option +
                 " (" + item.value + ")"
@@ -188,17 +202,22 @@
         now.forEach((item, index) => {
             template(item, "now", false, true, index)
         })
-
+        nowOthers.forEach((item, index) => {
+            template(item, "now", true, true, index)
+        })
         future.forEach((item, index) => {
             template(item, "future", false, false, index)
         })
 
-
+        futureOthers.forEach((item, index) => {
+            template(item, "future", true, false, index)
+        })
 
         console.log({
             "now": now,
-
-            "future": future
+            "nowOthers": nowOthers,
+            "future": future,
+            "futureOthers": futureOthers
         })
     </script>
 </body>
