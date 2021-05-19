@@ -86,12 +86,12 @@
                 "Humor": 0,
                 "Kindness": 0,
                 "Leadership": 0,
-                "Love of Learning": 0,
+                "Love of Learning": 1,
                 "Perspective": 0,
                 "Prudence": 0,
-                "Self Regulation": 0,
+                "Self Regulation": 1,
                 "Spirituality": 2,
-                "Teamwork": 2
+                "Teamwork": 1
             }
         }
         const searchParams = new URLSearchParams(window.location.search)
@@ -148,7 +148,7 @@
         future.forEach((item, index) => {
             if (index < numberOfIndexes) {
                 item.bold = true
-            } else if (item.value === future[index].value && item.value > 0) {
+            } else if (item.value === future[numberOfIndexes-1].value) {
                 item.bold = true
             }
         })
