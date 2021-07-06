@@ -133,13 +133,16 @@
             "height": 500,
             "width": 400,
             "params": {
-                "1": 1.5,
-                "2": 2.5,
-                "3": 4.9,
-
-                "4": 4,
-                "5": 3,
-                "6": 1.5
+                "Decisions": 3,
+                "Coordination": 4,
+                "Conflict": 2,
+                "Execution": 1,
+                "Motivation": 1,
+                "Ideation": 4,
+                "Priorities": 5,
+                "Perspective": 2,
+                "Approach": 1,
+                "Perception": 1
             }
         }
         const data = JSON.parse(searchParams.get('options')) || data2
@@ -167,7 +170,7 @@
 
 
             $('#' + curId).css({
-                top: index * data.height / 5 + "px"
+                top: index * data.height / 10 + "px"
             })
 
 
