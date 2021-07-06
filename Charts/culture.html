@@ -62,17 +62,17 @@
             background-color: white;
         }
 
-        .title{
+        .title {
             font-family: sans-serif;
             font-weight: 200;
-            top:10px;
+            top: 10px;
             position: absolute;
         }
     </style>
 </head>
 
 <body>
-<!--
+    <!--
     <div id="canvas" class="canvas">
         <div class="line" style="left:0px"> </div>
         <div class="line" style="right:0px"> </div>
@@ -94,9 +94,9 @@
     </div>
 
     <script>
-       // const template =
+        // const template =
         //    ' <div id="canvas" class="canvas\"> <div class=\"line\" style=\"left:0px\"> </div><div class=\"line\" style=\"right:0px\"> </div><div class=\"line\" style=\"left:200px\"> </div><div class=\"line\" style=\"left:0px; top:25px;height: 0.5px; width: 400px;\"> </div><div class=\"point leftPoint left\"> <div class=\"pointText\"> 3.5</div></div><div class=\"point rightPoint right\"> <div class=\"pointText\"> 3.5</div></div></div>'
-      
+
 
         const template = `
         <div id="canvas" class="canvas">
@@ -113,6 +113,8 @@
         
 
     </div> `
+
+        const max = 5
     </script>
 
     <script>
@@ -131,30 +133,13 @@
             "height": 500,
             "width": 400,
             "params": {
-                "overall": {
-                    "left": 1.4,
-                    "right": 4
-                },
-                "grit": {
-                    "left": 2,
-                    "right": 3
-                },
-                "perseverance": {
-                    "left": 3.6,
-                    "right": 2.6
-                },
-                "candor": {
-                    "left": 2.5,
-                    "right": 1.8
-                },
-                "passion": {
-                    "left": 4.9,
-                    "right": 2.4
-                },
-                "vulnerability": {
-                    "left": 4.2,
-                    "right": 1.9
-                }
+                "1": 1.5,
+                "2": 2.5,
+                "3": 4.9,
+
+                "4": 4,
+                "5": 3,
+                "6": 1.5
             }
         }
         const data = JSON.parse(searchParams.get('options')) || data2
@@ -206,13 +191,16 @@
 
 
             let leftCss = {
-                left: 0+data.left/data.max*width-7,//  + data.left / data.max * width  + "px",
+                left: 0 + data / max * width - 7, //  + data / data.max * width  + "px",
                 "color": "white"
 
             }
+            console.log("LeftCSS:" + leftCss.left)
+
+            console.log("data:" + data)
             let rightCss = {
-                left: width / 2 + data.right / data.max * width / 2 + "px"
-               
+                left: width / 2 + data / data.max * width / 2 + "px"
+
 
             }
 
@@ -228,7 +216,7 @@
             }
 
             $(canvas + " .left").css(leftCss)
-            $(canvas + " .left .pointText").text(data.left)
+            $(canvas + " .left .pointText").text(data)
             $(canvas + " .right").css(rightCss)
             $(canvas + " .right .pointText").text(data.right)
 
