@@ -90,7 +90,7 @@
                 "Perspective": 0,
                 "Prudence": 0,
                 "Self Regulation": 1,
-                "Spirituality": 2,
+                "Spirituality": 5,
                 "Teamwork": 1
             }
         }
@@ -145,6 +145,7 @@
         const color3 = "#909090"
 
        
+
         future.forEach((item, index) => {
             if (index < numberOfIndexes) {
                 item.bold = true
@@ -152,12 +153,14 @@
                 item.bold = true
             }
         })
+
         const futureInclude = future.filter(item => {
             return item.bold
         }).map(item => {
             return item.option
         })
-        console.log(futureInclude)
+
+        
         now.forEach(item => {
             if (futureInclude.includes(item.option)) {
                 item.bold=true

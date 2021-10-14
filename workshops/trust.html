@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+.sq {
+    background-color: grey;
+    border:solid;
+    border-width: 2px;
+    border-color: black;
+    width: 300px;
+    min-height:300px;
+    position:absolute;
+
+}
+#h12,#h34 {
+width:300px;
+position:absolute;
+min-height:300px;
+
+}
+
+#h34{
+    left:300px;
+}
+
+#h2,#h4 {
+    top:300px;
+}
+</style>
+    <title>Trust</title>
+</head>
+
+<body>
+<div id="main">
+<div id="h12">
+
+
+
+    <div id="h1" class="sq" >
+
+    </div>
+    <div id="h2" class="sq" >
+
+    </div>
+</div>
+<div id="h34">    
+    <div id="h3" class="sq" >
+
+    </div>
+    <div id="h4" class="sq" >
+
+    </div>
+</div>
+</div>
+
+<script>
+    let template = `
+        <p> some cool text here</p>
+ `
+ function addTemplate (text,div) {
+  // create a new div element
+  const newDiv = document.createElement("p");
+
+
+ 
+  // and give it some content
+  const newContent = document.createTextNode(text);
+
+  // add the text node to the newly created div
+  newDiv.appendChild(newContent);
+
+  // add the newly created element and its content into the DOM
+  const currentDiv = document.getElementById(div);
+
+  currentDiv.appendChild(newDiv)
+  //document.body.insertBefore(newDiv, currentDiv);
+}
+
+let number = 24
+
+for (i=0;i<=number;i++){
+    addTemplate("text","h1")
+}
+addTemplate("text","h1")
+</script>
+</body>
+
+</html>
