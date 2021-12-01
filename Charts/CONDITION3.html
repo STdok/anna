@@ -1,0 +1,355 @@
+<head>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.bundle.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+
+<style>
+    body{
+            margin:0
+        }
+</style>  
+</head>
+
+<body>
+
+    <div class="chart-container" style="width:400">
+        <canvas id="chartjs-2"></canvas>
+    </div>
+    <script>
+ function roundData(data) {
+            let sum = data.reduce(function (accumulator, currentValue) {
+                return accumulator + currentValue
+            }, 0)
+
+
+            if (sum === 100) {
+
+            } else {
+                console.log("else")
+                for (i = 0; i <= data.length; i++) {
+
+                    if (sum === 100) {
+                        console.log("sum=100")
+                    } else if (sum !== 100 && data[i] === 0) {
+                        console.log("item=0")
+                    } else if (sum !== 100 && data[i] > 0) {
+
+                        if(sum<100){
+                        data[i] = data[i] + 100 - sum
+                        } else {
+                            data[i] = data[i] - sum+100
+
+                        }
+                        sum = data.reduce(function (accumulator, currentValue) {
+                            return accumulator + currentValue
+                        }, 0)
+
+                        console.log("item=" + data[i] + "  sum=" + sum)
+
+                    }
+
+                }
+
+            }
+
+            console.log(sum)
+            // return 
+        }
+       
+       
+        const settings2 = {
+            "colors": ["4450a2", "4450a2", "6668b0", "a6a5a5", "858585", "626363"],
+            "font": "Poppins",
+            "font_size": "10",
+            "font_style":"bold"
+        }
+
+        var data2 = [
+            [10,20, 20, 20, 20, 10],  
+            [10,20, 20, 20, 19, 10], 
+            [10,20, 20, 20, 20, 10], 
+            [10,20, 20, 20, 20, 10],  
+            [10,20, 20, 20, 20, 10], 
+            [10,20, 20, 20, 20, 10],
+            [10,20, 20, 20, 20, 10],  
+            [10,20, 20, 20, 19, 10], 
+            [10,20, 20, 20, 20, 10], 
+            [10,20, 20, 20, 20, 10],  
+            [10,20, 20, 20, 20, 10], 
+            [10,20, 20, 20, 20, 10]
+        ]
+
+        const searchParams = new URLSearchParams(window.location.search)
+        const settings = JSON.parse(searchParams.get('settings')) || settings2
+        const round=searchParams.get("round") || false
+
+        settings.colors = settings.colors.map(item=>{
+
+            return '#'+item
+        })
+
+        var data = JSON.parse(searchParams.get('options')) || data2
+
+        function genData() {
+            var res = []
+            for (i = 1; i <= 6; i++) {
+
+
+
+                let result = []
+                let result2 = []
+                for (j = 1; j <= 6; j++) {
+                    let number = Math.floor(Math.random() * 100)
+                    result.push(number)
+
+                }
+
+                let sum = 0
+                result.forEach(item => {
+                    sum = sum + item
+                })
+                result.forEach(item => {
+                    result2.push(Math.round(item / sum * 100))
+                })
+                let sum2 = 0
+
+                result2.forEach(item => {
+                    sum2 = sum2 + item
+                })
+                console.log("sum2=" + sum2)
+                console.log('f ' + result2[0])
+
+                if (sum2 === 99) {
+                    result2[0] = result2[0] + 1
+                    console.log('hello ' + result2[0])
+
+                }
+                if (sum2 === 101) {
+                    result2[0] = result2[0] - 1
+                    console.log('hello ' + result2[0])
+
+                }
+                let sum3 = 0
+                result2.forEach(item => {
+                    sum3 = sum3 + item
+                })
+
+                console.log("sum3=" + sum2)
+                res.push(result2)
+
+
+
+            }
+
+            return res
+
+        }
+
+
+
+
+        function transpose(data) {
+            return data[0].map((_, colIndex) => data.map(row => row[colIndex]))
+        }
+
+        if(round==='yes'){
+            console.log("round")
+        data.forEach(roundData)
+        }
+        data = transpose(data)
+       
+    </script>
+    <script>
+        Chart.defaults.global.elements.rectangle.borderWidth = 0.5
+        Chart.defaults.global.elements.rectangle.borderColor = "#ffffff"
+
+
+
+        Chart.defaults.global.datasets.barThickness = 10,
+        Chart.defaults.global.defaultFontFamily = settings.font;
+        Chart.defaults.global.defaultFontSize = settings.font_size;
+        Chart.defaults.global.defaultFontStyle = settings.font_style;
+      //  Chart.defaults.global.defaultFontStyle = settings.font_style;
+
+        const aspirer = {
+           // colors:["#4450a2", "#4450a2", "#6668b0", "#a6a5a5", "#858585", "#626363"],//settings.colors,
+            colors:settings.colors,
+
+            labels: [
+            ["PSYCHOLOGICAL", "SAFETY"],
+                ["GROWTH", "MINDSET"], "RELIABILITY", "CREDIBILITY", "EMPATHY", ["TEAM", "ORIENTATION"],
+                ["ROLE ", "CLARITY"],
+                ["STRATEGIC ", "CLARITY"], "CONGRUENCE", "ACCEPTENCE", "OPENNESS", "PURPOSE"
+            ]
+        }
+
+
+
+        const set = aspirer
+
+        const opt = {
+            barThickness: 40
+        }
+
+        // VALUES ON BAR
+        const animation = {
+                duration: 0,
+                "onComplete": function() {
+                    var chartInstance = this.chart,
+                        ctx = chartInstance.ctx;
+
+                    ctx.font = Chart.helpers.fontString(10, "bold", Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    ctx.fillStyle = "white"
+
+                    this.data.datasets.forEach(function(dataset, i) {
+                        var meta = chartInstance.controller.getDatasetMeta(i);
+                        meta.data.forEach(function(bar, index) {
+                            var data = dataset.data[index];
+                            if (data > 5) {
+                                ctx.font = Chart.helpers.fontString(10, "bold", Chart.defaults.global.defaultFontFamily);
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'bottom';
+                    ctx.fillStyle = "white"
+
+                                ctx.fillText(data, bar._model.x - 8, bar._model.y +5);
+                            }
+                            if (data < 5&&data>0) {
+
+                                ctx.font = Chart.helpers.fontString(8, "bold", Chart.defaults.global.defaultFontFamily);
+
+                                ctx.textAlign = 'right';
+                                ctx.fillStyle = "white"
+                                ctx.fillText(data, bar._model.x -0, bar._model.y +10);
+                            }
+                        });
+                    });
+                }
+            }
+            // VALUES ON BAR
+
+        const chart = new Chart(document.getElementById("chartjs-2").getContext("2d"), {
+
+            showTooltips: false,
+            "type": "horizontalBar",
+            "data": {
+
+                "labels": set.labels,
+                "datasets": [{
+                    "label": "Dataset 1",
+                    "backgroundColor": set.colors[0],
+                    barThickness: opt.barThickness,
+                    "data": data[0]
+                }, {
+                    "label": "Dataset 2",
+                    "backgroundColor": set.colors[1],
+                    barThickness: opt.barThickness,
+                    "data": data[1]
+
+                }, {
+                    "label": "Dataset 3",
+                    "backgroundColor": set.colors[2],
+                    barThickness: opt.barThickness,
+                    "data": data[2]
+                }, {
+                    "label": "Dataset 4",
+                    "backgroundColor": set.colors[3],
+                    barThickness: opt.barThickness,
+                    "data": data[3]
+                }, {
+                    "label": "Dataset 5",
+                    "backgroundColor": set.colors[4],
+                    barThickness: opt.barThickness,
+                    "data": data[4]
+                }, {
+                    "label": "Dataset 6",
+                    "backgroundColor": set.colors[5],
+                    barThickness: opt.barThickness,
+                    "data": data[5]
+                }]
+            },
+            "options": {
+                textAlign:"left",
+                showTooltips: false,
+
+                animation: animation,
+                "legend": {
+                    "display": false
+                },
+                "tooltips": {
+                    "enabled": false
+                },
+
+                layout: {
+                    padding: {
+                        left: 100,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                "responsive": true,
+                "maintainAspectRatio": true,
+                "responsiveAnimationDuration": 0,
+                aspectRatio: 0.7,
+                "scales": {
+                    "xAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            fontSize: 18,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "ticks": {
+                            "beginAtZero": true,
+                            "display": false
+                        },
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": true,
+                            drawBorder: false,
+                            lineWidth: 0,
+                            drawOnChartArea: true,
+                            drawTicks: false,
+                            zeroLineBorderDashOffset: 5,
+                            // zeroLineBorderDash: [2, 2, 2, 2, 2, 2],
+                            zeroLineWidth: 1.2,
+                            zeroLineColor: "#636363",
+                            offsetGridLines: false,
+                            z: 9999999,
+                            color: "#636363"
+                        }
+                    }],
+                    "yAxes": [{
+                        scaleLabel: {
+                            display: false,
+                            labelString: "The Horizontal label string needs to be even longer to truncate"
+                        },
+                        "stacked": true,
+                        "gridLines": {
+                            "offsetGridLines": false,
+                            "display": false
+                        },
+                        "ticks": {
+                            "mirror":true,
+                           
+                            "beginAtZero": true,
+                            "display": true,
+                            font:{
+                                size:10,
+                                style:"normal"
+                            },
+                            padding: 100
+                        }
+                    }]
+                }
+            }
+        });
+        chart.canvas.parentNode.style.height = '128px';
+    </script>
+</body>
